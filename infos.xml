@@ -4,7 +4,7 @@
 	<author><![CDATA[Stéphane F., fork by Pedro "P3ter" CADETE & GCYRILLUS]]></author>
 	<version>1.8</version>
 	<date>27/02/2023</date>
-	<site>https://github.com/P3ter/plxEditor</site>
+	<site>https://github.com/gcyrillus/plxEditor</site>
 	<description><![CDATA[plxEditor is a wysiwyg editor for PluXml - an extra button to insert code into &lt;pre>&lt;code> tags. Loads highlight.js & CSS at front ]]></description>
 	<requirements></requirements>
 	<scope></scope>
