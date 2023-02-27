@@ -7,6 +7,7 @@ lang={
 'L_TOOLBAR_STRIKE'					: 'Texte barré',
 'L_TOOLBAR_LINK_MSG'				: 'Veuillez entrer une adresse',
 'L_TOOLBAR_LINK'					: 'Lien',
+'L_TOOLBAR_HILITE'					: 'hilite',
 'L_TOOLBAR_BR'						: 'Retour à la ligne',
 'L_TOOLBAR_HR'						: 'Ligne horizontale',
 'L_TOOLBAR_UL'						: 'Liste à puce',

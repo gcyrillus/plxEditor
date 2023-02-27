@@ -81,7 +81,6 @@ PLXEDITOR.editor=function() {
 		<option value="<p>">P</option>\
 		<option value="<pre>">Pre</option>\
 	</select>\
-	<span id="'+this.textareaId+'-hiliteFormat" class="tb-icon-embed" style="background:yellow" onclick="'+this.editor+'.execCommand(\'hiliteFormat\')" title="pre code"></span>\
 	<span class="tb-icon-paragraph-left" onclick="'+this.editor+'.execCommand(\'justifyleft\', \'<br />\')" title="'+lang.L_TOOLBAR_P_LEFT+'"></span>\
 	<span class="tb-icon-paragraph-center" onclick="'+this.editor+'.execCommand(\'justifycenter\', \'<br />\')" title="'+lang.L_TOOLBAR_P_CENTER+'"></span>\
 	<span class="tb-icon-paragraph-right" onclick="'+this.editor+'.execCommand(\'justifyright\', \'<br />\')" title="'+lang.L_TOOLBAR_P_RIGHT+'"></span>\
@@ -176,9 +175,7 @@ PLXEDITOR.editor=function() {
 		if (cmd == "link" && !value) {
 			sel = this.getselection();
 			new PLXEDITOR.linker.create(this.editor, this.textareaId+'-linker', this.trim(sel));
-		} else if (cmd == "hiliteFormat" && !value) {
-			new PLXEDITOR.hiliteFormat.create(this.editor, this.textareaId+'-hiliteFormat', "hilite");
-		}else if (cmd == "forecolor" && !value) {
+		} else if (cmd == "forecolor" && !value) {
 			new PLXEDITOR.cpicker.create(this.editor, this.textareaId+'-forecolor', "forecolor");
 		} else if (cmd == "backcolor" && !value) {
 			new PLXEDITOR.cpicker.create(this.editor, this.textareaId+'-backcolor', (this.IE ? "backcolor" : "hilitecolor") );
@@ -217,8 +214,7 @@ PLXEDITOR.editor=function() {
 		E$(this.textareaId).value = txt.replace(/<br\s*?\/?>$/, '');
 	},
 	create.prototype.setFrameContent=function () {
-	var hiliteIt='';
-		try { this.frame.document.body.innerHTML = hiliteIt + this.textareaValue; } catch (e) { setTimeout(this.setFrameContent, 10); }
+		try { this.frame.document.body.innerHTML = this.textareaValue; } catch (e) { setTimeout(this.setFrameContent, 10); }
 	},
 	create.prototype.getFrameHtml=function() {
 		var html = "";
@@ -227,7 +223,7 @@ PLXEDITOR.editor=function() {
 		html += '<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">';
 		html += '<style type="text/css">pre { background-color: #fff; padding: 0.75em 1.5em; border: 1px solid #dddddd;* }</style>';
 		html += '<style type="text/css">html,body { font-family: helvetica, arial, sans-serif; cursor: text; } body { margin: 0.5em; padding: 0; } img { border:none; max-width: 100%; } a { color: #258fd6; text-decoration:none; }</style>';
-		html += '</head><body> </body></html>';
+		html += '</head><body></body></html>';
 		return html;
 	},
 	create.prototype.toggleFullscreen = function() {
@@ -258,7 +254,7 @@ PLXEDITOR.editor=function() {
 			txt=txt.replace(new RegExp(PLXEDITOR_PATH_MEDIAS, 'g'), "../../"+PLXEDITOR_PATH_MEDIAS);
 			txt=txt.replace(new RegExp(PLXEDITOR_PATH_PLUGINS, 'g'), "../../"+PLXEDITOR_PATH_PLUGINS);
 		} else {
-			//txt=txt.replace(new RegExp("../../"+PLXEDITOR_PATH_MEDIAS, 'g'), PLXEDITOR_PATH_MEDIAS);
+			txt=txt.replace(new RegExp("../../"+PLXEDITOR_PATH_MEDIAS, 'g'), PLXEDITOR_PATH_MEDIAS);
 			txt=txt.replace(new RegExp("../../"+PLXEDITOR_PATH_PLUGINS, 'g'), PLXEDITOR_PATH_PLUGINS);
 		}
 		return txt;
@@ -324,7 +320,7 @@ PLXEDITOR.editor=function() {
 		//	v=v.replace(/<span\b[^>]*>(.*?)<\/span[^>]*>/gi,'$1');
 		v=v.replace(/<b\b[^>]*>(.*?)<\/b[^>]*>/gi,'<strong>$1</strong>');
 		v=v.replace(/<i\b[^>]*>(.*?)<\/i[^>]*>/gi,'<em>$1</em>');
-	    v=v.replace(/<(s|strike)\b[^>]*>(.*?)<\/(s|strike)[^>]*>/gi,'<span style="text-decoration: line-through;">$2</span>');
+		v=v.replace(/<(s|strike)\b[^>]*>(.*?)<\/(s|strike)[^>]*>/gi,'<span style="text-decoration: line-through;">$2</span>');
 		v=v.replace(/<u\b[^>]*>(.*?)<\/u[^>]*>/gi,'<span style="text-decoration:underline">$1</span>');
 		v=v.replace(/<(b|strong|em|i|u) style="font-weight: normal;?">(.*)<\/(b|strong|em|i|u)>/gi,'$2');
 		v=v.replace(/<(b|strong|em|i|u) style="(.*)">(.*)<\/(b|strong|em|i|u)>/gi,'<span style="$2"><$4>$3</$4></span>');
@@ -339,7 +335,7 @@ PLXEDITOR.editor=function() {
 		v=v.replace(/STYLE="[^"]*"/gi,sa); //lc style atts
 		v=v.replace(/<br\b[^>]*>/gi,'<br />'); // clean line-break options
 		v=v.replace(/<div\b[^>]*><br \/><\/div[^>]*>/gi, '<br />'); // clean line break enclosed in div
-		v=v.replace(/<div\b[^>]*><code><br \/><\/code><\/div[^>]*>/gi, ''); // clean line break enclosed in div/code
+		v=v.replace(/<div\b[^>]*><code><br \/><\/code><\/div[^>]*>/gi, '<br />'); // clean line break enclosed in div/code
 		v=v.replace(/<div\b[^>]*><strong><br \/><\/strong><\/div[^>]*>/gi, '<br />'); // clean line break exeption
 		return v;
 	},
@@ -347,9 +343,9 @@ PLXEDITOR.editor=function() {
 		//strip white space
 		html = html.replace(/ /g, ' ');
 		//strip tab
-	//html = html.replace(/\t/g, ' ');
+		html = html.replace(/\t/g, ' ');
 		//strip carriage return
-	//html = html.replace(/\r/g, ' ');
+		html = html.replace(/\r/g, ' ');
 		//convert html to text
 		html = html.replace(/&/g, '&amp;');
 		html = html.replace(/</g, '&lt;');
@@ -377,7 +373,7 @@ PLXEDITOR.editor=function() {
 PLXEDITOR_fallback = function(cible, txt, replace) {
 	var editor = 'window.opener.' + cible.replace('id_', 'editor_');
 	txt = '../../'+txt.replace(PLUXML_ROOT, '');
-	var res = txt.match(/\.tb\.(jpe?g|gif|png|webp)$/gi);
+	var res = txt.match(/\.tb\.(jpe?g|gif|png)$/gi);
 	var ext = txt.substr(txt.lastIndexOf('.') + 1);
 	if(res) {
 		var f = txt.replace(res[0], '.'+ext);
@@ -486,12 +482,12 @@ PLXEDITOR.linker=function() {
 			var sClass = (E$('txtClass') ? (E$('txtClass').value!=''? ' class="'+E$('txtClass').value+'"':'') : '');
 			var sRel = (E$('txtRel') ? (E$('txtRel').value!=''? ' rel="'+E$('txtRel').value+'"':'') : '');
 			if(sTtitle=='' || PLXEDITOR.linker.isUrl(sHref)==false) return;
-			editor.execCommand('inserthtml', '<a href="'+sHref+'" title="'+sTtitle+'"'+sClass+sRel+'>'+sTtitle+'</a> ');
+			editor.execCommand('inserthtml', '<a href="'+sHref+'" title="'+sTtitle+'"'+sClass+sRel+'>'+sHref+sTtitle+'</a> ');
 			PLXEDITOR.dialog.close('linker');
 		},
 		isUrl:function(s) {
-			var regexp = /(ftp|http|https):\/\/(\w+:{0,1}\w*@)?(\S+)(:[0-9]+)?(\/|\/([\w#!:.?+=&%@!\-\/]))?/
-			return regexp.test(s);
+			
+  return s ;
 		}
 	}
 }();
@@ -585,47 +581,4 @@ PLXEDITOR.smilies=function(){
 		return table;
 	};
 	return{create:create}
-}();
-
-
-PLXEDITOR.hiliteFormat=function() {
-	function create(editor, button, value){
-		this.editor=editor;
-		this.button=button;
-		this.value=value;
-		if(E$('hiliteFormat')) return PLXEDITOR.dialog.close('hiliteFormat');
-		this.showPanel();
-	}
-	//------------
-	create.prototype.showPanel=function(){
-		var elemDiv = document.createElement('div');
-		elemDiv.id = 'hiliteFormat';
-	    elemDiv.style.position = 'absolute';
-		elemDiv.style.display = 'block';
-		elemDiv.style.border = '#aaa 1px solid';
-		elemDiv.style.zIndex = "2";
-		var top = PLXEDITOR.dialog.getAbsoluteOffsetTop(E$(this.button)) + 20;
-		var left = PLXEDITOR.dialog.getAbsoluteOffsetLeft(E$(this.button));
-		elemDiv.style.top = top + 'px';
-		elemDiv.style.left = left + 'px';
-		elemDiv.innerHTML = this.panel();
-		document.body.appendChild(elemDiv);
-	},
-	create.prototype.panel=function() {
-	var code ='<div style="padding:3px;background:silver"><label>code</label>';
-	code +='<div><textarea id="txtarea" cols="45" rows="8" name="txtarea"></textarea></div>';
-	code +='<input type="submit" value="Ajouter" onclick="PLXEDITOR.hiliteFormat.add('+this.editor+')" />&nbsp;<input type="submit" name="btnCancel" id="btnCancel" value="Annuler" onclick="PLXEDITOR.dialog.close(\'hiliteFormat\')" /></div>';
-		return code;
-	};
-	return{
-		create:create,
-		add:function(editor) { 
-			var sTcode = (E$('txtarea').value ? E$('txtarea').value : '');
-			editor.execCommand('inserthtml', '<pre><code class=""><p>'+sTcode+'</p></code></pre> ');
-			PLXEDITOR.dialog.close('hiliteFormat');
-		},
-		go:function(s) {			
-		return this.s;
-		}
-	}
 }();

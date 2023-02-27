@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <document>
 	<title><![CDATA[plxEditor]]></title>
-	<author><![CDATA[Stéphane F.]]></author>
-	<version>1.6</version>
-	<date>29/01/2019</date>
-	<site>http://pluxopolis.net</site>
-	<description><![CDATA[plxEditor wysiwyg editor]]></description>
+	<author><![CDATA[Stéphane F., fork by Pedro "P3ter" CADETE & GCYRILLUS]]></author>
+	<version>1.7</version>
+	<date>07/01/2021</date>
+	<site>https://github.com/P3ter/plxEditor</site>
+	<description><![CDATA[plxEditor is a wysiwyg editor for PluXml - an extra button to insert code into &lt;pre>&lt;code> tags. Loads highlight.js & CSS at front ]]></description>
 	<requirements></requirements>
+	<scope></scope>
 </document>

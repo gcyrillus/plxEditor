@@ -3,7 +3,7 @@
  * Plugin plxEditor
  *
  * @package	PLX
- * @author	Stephane F
+ * @author	Stephane F, fork by Pedro "P3ter" CADETE
  **/
 class plxEditor extends plxPlugin {
 
@@ -110,13 +110,14 @@ class plxEditor extends plxPlugin {
 		echo '<?php $plxAdmin->aConf["default_lang"] ?>';
 		echo '<link rel="stylesheet" type="text/css" href="'.$this->plugPath.'plxEditor/css/plxEditor.css" media="screen" />'."\n";
 		echo '<link rel="stylesheet" type="text/css" href="'.$this->plugPath.'plxEditor/css/viewsource.css" media="screen" />'."\n";
+		echo '<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/highlight.min.js"></script><script>hljs.highlightAll();</script>';
 		echo '<?php
 			$js = "'.$this->plugPath.'plxEditor/lang/".$plxAdmin->aConf["default_lang"].".js";
 			if(!is_file($js)) $js = "'.$this->plugPath.'plxEditor/lang/fr.js";
 			echo "<script src=\"".$js."\"></script>\n";
 		?>';
 		echo '<?php $medias = $plxAdmin->aConf["medias"].($plxAdmin->aConf["userfolders"] ? $_SESSION["user"]."/" : ""); ?>';
-		echo '<script src="'.PLX_PLUGINS.'plxEditor/plxEditor/plxEditor.js"></script>'."\n";
+		echo '<script src="'.PLX_PLUGINS.'plxEditor/plxEditor/plxEditor.js?t"></script>'."\n";
 	}
 
 	/**
@@ -145,6 +146,11 @@ class plxEditor extends plxPlugin {
 	 **/
 	public function ThemeEndHead() {
 		echo '<style>.frame.youtube iframe { border:0; max-width: 560px; max-height: 315px; }</style>'."\n";
+		echo '<!-- PlxEditor 2 -->
+		<link rel="stylesheet"
+      href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/styles/default.min.css">
+		<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/highlight.min.js"></script>
+		<script>hljs.highlightAll();</script>';
 	}
 
 }
