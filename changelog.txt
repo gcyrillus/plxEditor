@@ -1,4 +1,8 @@
-﻿## Version 1.7 (2021/01/07) ##
+﻿## Version 1.8 (27/02/2023) ##
+[+] Display new button to insert code inside <pre><code> tags
+[+] Loads highlight.js on front-end to highlight code found.
+
+## Version 1.7 (2021/01/07) ##
 [+] Display align icons directly outside the list
 FIX <br> added to emptu article chapo
 
