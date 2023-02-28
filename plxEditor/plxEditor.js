@@ -2,7 +2,7 @@
  * plxEditor
  *
  * @package PLX
- * @author	Stephane F, fork by Pedro "P3ter" CADETE
+ * @author	Stephane F, fork by Pedro "P3ter" CADETE & fork 1.7 to 1.8 by Gcyrillus
  **/
 PLXEDITOR={};
 
@@ -621,10 +621,11 @@ PLXEDITOR.hiliteFormat=function() {
 		create:create,
 		add:function(editor) { 
 			var sTcode = (E$('txtarea').value ? E$('txtarea').value : '');
-			editor.execCommand('inserthtml', '<pre><code class=""><p>'+sTcode+'</p></code></pre> ');
+			sTcode = editor.formatHTML(sTcode);
+			editor.execCommand('inserthtml', '<pre><code class="">'+sTcode+'</code></pre> ');
 			PLXEDITOR.dialog.close('hiliteFormat');
 		},
-		go:function(s) {			
+		go:function(s) {#ne sert a quasi rien ...
 		return this.s;
 		}
 	}
